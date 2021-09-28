@@ -43,23 +43,23 @@ public class MedicamentServiceImp implements MedicamentService{
 			
 	}				
 		
-
 	@Override
 	public MessageResponse putMedica(Medicament m) {
 		// TODO Auto-generated method stub
 		
 		if(!(mr.existsByNomAndId(m.getNom(),m.getId())))
 		{
+			if(mr.existsByNom(m.getNom()))
+			{
+			return new MessageResponse(false,"Medicament existant");
+			}
+		}
 			mr.save(m);
 			return new MessageResponse(true,"Medicament mis à jour avec succès");
 			
 		}
-		if(mr.existsByNom(m.getNom()))
-		{
-		return new MessageResponse(false,"Medicament existant");
-		}
-		return null;
-		}
+
+		
 
 	@Override
 	public MessageResponse deleteMedica(Integer i) {
